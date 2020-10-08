@@ -3,3 +3,11 @@
 ################################################################################
 
 /.vs
+/Application/bin/Debug/netcoreapp3.1
+/Application/obj
+/Domain/bin/Debug/netcoreapp3.1
+/Domain/obj
+/Persistance/bin/Debug
+/Persistance/obj
+/UnitTestProject/bin/Debug/netcoreapp3.1
+/UnitTestProject/obj
