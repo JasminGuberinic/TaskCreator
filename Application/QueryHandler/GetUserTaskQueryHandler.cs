@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Domain;
+using MediatR;
 using Persistance;
 using System;
 using System.Collections.Generic;
@@ -8,17 +9,17 @@ using System.Threading.Tasks;
 
 namespace Application.QueryHandler
 {
-    public class GetUserTaskQueryHandler : IRequestHandler<GetUserTaskQuery, string>
+    public class GetUserTaskQueryHandler : IRequestHandler<GetUserTaskQuery, UserTask>
     {
         private readonly IUserTaskRepository _userTaskRepository;
         public GetUserTaskQueryHandler(IUserTaskRepository userTaskRepository)
         {
             _userTaskRepository = userTaskRepository;
         }
-        public Task<string> Handle(GetUserTaskQuery request, CancellationToken cancellationToken)
+        public Task<UserTask> Handle(GetUserTaskQuery request, CancellationToken cancellationToken)
         {
-            var result = _userTaskRepository.GetById("");
-            return Task.FromResult(result.ID);
+            var result = _userTaskRepository.GetById(request.ID);
+            return Task.FromResult(result);
         }
     }
 }

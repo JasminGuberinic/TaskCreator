@@ -8,5 +8,6 @@ namespace Persistance
     public interface IUserTaskRepository
     {
         UserTask GetById(string id);
+        Guid CreateUserTask(string name, string description);
     }
 }

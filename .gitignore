@@ -11,3 +11,7 @@
 /Persistance/obj
 /UnitTestProject/bin/Debug/netcoreapp3.1
 /UnitTestProject/obj
+/Domain/bin/Debug/netcoreapp3.0
+/UnitTestProject/bin/Debug/netcoreapp3.0
+/WebAPI/bin/Debug/netcoreapp3.1
+/WebAPI/obj

@@ -6,6 +6,11 @@ namespace Persistance
 {
     public class UserTaskContext : DbContext
     {
-        public DbSet<UserTask> Boogles { get; set; }
+
+        public UserTaskContext(DbContextOptions<UserTaskContext> options) : base(options)
+        {
+        }
+
+        public DbSet<UserTask> UserTasks { get; set; }
     }
 }
