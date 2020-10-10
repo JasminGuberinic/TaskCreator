@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Domain;
+using MediatR;
 using Persistance;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Application
 
         public async Task<Guid> Handle(CreateUserTaskCommand request, CancellationToken cancellationToken)
         {
-            return await _userTaskRepository.CreateUserTask(request.Name, request.Description);
+            return await _userTaskRepository.CreateUserTask(NameCheckService.MakeUserTaskNameValid(request.Name), request.Description);
         }
     }
 }

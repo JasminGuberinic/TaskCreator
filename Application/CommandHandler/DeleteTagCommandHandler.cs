@@ -20,7 +20,7 @@ namespace Application
         public async Task<string> Handle(DeleteTagCommand request, CancellationToken cancellationToken)
         {
             var tagToDelete = await _tagRepository.DeleteTag(request.Id);
-            return request.Id;
+            return tagToDelete;
         }
     }
 }

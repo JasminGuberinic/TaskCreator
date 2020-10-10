@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Domain;
+using MediatR;
 using Persistance;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,9 @@ namespace Application
 
         public async Task<Guid> Handle(CreateTagCommand request, CancellationToken cancellationToken)
         {
-            return await _tagRepository.CreateUserTag(request.UserTaskID, request.TagName);
+            if(NameCheckService.IsTagNameValid(request.TagName))
+                return await _tagRepository.CreateUserTag(request.UserTaskID, request.TagName);
+            throw new InvalidNameException("Each tag must be at least 3 characters long and must consist of alphabetical lowercase letters");
         }
     }
 }
