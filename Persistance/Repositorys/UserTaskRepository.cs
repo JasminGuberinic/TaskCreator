@@ -51,7 +51,7 @@ namespace Persistance
 
         public UserTask GetByName(string name)
         {
-            return _dbContext.UserTasks.FirstOrDefault(ut => ut.Name == name);
+            return _dbContext.UserTasks.FirstOrDefault(ut => ut.Name.ToLower() == name.ToLower());
         }
     }
 }
