@@ -12,5 +12,6 @@ namespace Persistance
         }
 
         public DbSet<UserTask> UserTasks { get; set; }
+        public DbSet<Tag> Tags { get; set; }
     }
 }

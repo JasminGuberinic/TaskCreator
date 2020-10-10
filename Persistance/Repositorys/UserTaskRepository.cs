@@ -25,12 +25,28 @@ namespace Persistance
                 Description = description,
                 TaskStatus = TaskStatus.NOTRUN
             });
+            _dbContext.SaveChanges();
             return guid;
         }
 
         public UserTask GetById(string id)
         {
             return _dbContext.UserTasks.FirstOrDefault(ut => ut.ID == id);
+        }
+
+        public List<UserTask> GetById(List<Tag> tags)
+        {
+            return _dbContext.UserTasks.Where(ut => tags.Any(tg => tg.ID == ut.ID)).ToList();
+        }
+
+        public List<UserTask> GetById(List<string> tags)
+        {
+            return _dbContext.UserTasks.Where(ut => tags.Any(tg => tg == ut.ID)).ToList();
+        }
+
+        public UserTask GetByName(string name)
+        {
+            return _dbContext.UserTasks.FirstOrDefault(ut => ut.Name == name);
         }
     }
 }

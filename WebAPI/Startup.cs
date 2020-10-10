@@ -46,7 +46,11 @@ namespace WebAPI
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddTransient<IUserTaskRepository, UserTaskRepository>();
-            services.AddMediatR(typeof(Application.GetUserTaskQuery));
+            services.AddTransient<ITagRepository, TagRepository>();
+
+            services.AddMediatR(typeof(Application.GetUserTaskQuery), 
+                typeof(Application.GetUserTaskByNameQuery),
+                typeof(Application.CreateUserTaskCommand));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
