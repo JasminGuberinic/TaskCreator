@@ -16,9 +16,9 @@ namespace Application
             _userTaskRepository = userTaskRepository;
         }
 
-        public Task<Guid> Handle(CreateUserTaskCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateUserTaskCommand request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_userTaskRepository.CreateUserTask(request.Name, request.Description));
+            return await _userTaskRepository.CreateUserTask(request.Name, request.Description);
         }
     }
 }

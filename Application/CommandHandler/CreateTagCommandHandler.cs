@@ -17,9 +17,9 @@ namespace Application
             _tagRepository = tagRepository;
         }
 
-        public Task<Guid> Handle(CreateTagCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(CreateTagCommand request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return await _tagRepository.CreateUserTag(request.UserTaskID, request.TagName);
         }
     }
 }

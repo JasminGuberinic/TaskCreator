@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Persistance
 {
@@ -15,16 +16,20 @@ namespace Persistance
             _dbContext = dbContext;
         }
 
-        public Guid CreateUserTag(string name, string description)
+        public TagRepository()
+        {
+        }
+
+        public async Task<Guid> CreateUserTag(string userTaskID, string tagName)
         {
             var guid = Guid.NewGuid();
             _dbContext.Tags.Add(new Tag
             {
                 ID = guid.ToString(),
-                UserTaskID = name,
-                TagName = description,
+                UserTaskID = userTaskID,
+                TagName = tagName,
             });
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return guid;
         }
 
@@ -51,6 +56,14 @@ namespace Persistance
         public List<Tag> GetByName(List<string> names)
         {
             return  _dbContext.Tags.Where(tag => names.Any(ut => ut == tag.TagName)).ToList();
+        }
+
+        public async Task<string> DeleteTag(string id)
+        {
+            var tagToDelete = GetById(id);
+            _dbContext.Tags.Remove(tagToDelete);
+            await _dbContext.SaveChangesAsync();
+            return id;
         }
     }
 }

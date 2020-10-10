@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Persistance
 {
@@ -10,12 +11,16 @@ namespace Persistance
     {
         private readonly UserTaskContext _dbContext;
 
+        public UserTaskRepository()
+        {
+        }
+
         public UserTaskRepository(UserTaskContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public Guid CreateUserTask(string name, string description)
+        public async Task<Guid> CreateUserTask(string name, string description)
         {
             var guid = Guid.NewGuid();
             _dbContext.UserTasks.Add(new UserTask
@@ -23,9 +28,9 @@ namespace Persistance
                 ID = guid.ToString(),
                 Name = name,
                 Description = description,
-                TaskStatus = TaskStatus.NOTRUN
+                TaskStatus = Domain.TaskStatus.NOTRUN
             });
-            _dbContext.SaveChanges();
+            await _dbContext.SaveChangesAsync();
             return guid;
         }
 
