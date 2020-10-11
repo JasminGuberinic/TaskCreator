@@ -8,11 +8,11 @@ namespace Application
 {
     public class GetUserTasksByTagsQuery : IRequest<List<UserTask>>
     {
-        public List<string> IDs { get; set; }
+        public List<string> TagIDs { get; set; }
 
         public GetUserTasksByTagsQuery(List<string> ids)
         {
-            IDs = ids;
+            TagIDs = ids;
         }
     }
 }

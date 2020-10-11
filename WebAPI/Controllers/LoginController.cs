@@ -28,5 +28,11 @@ namespace WebAPI.Controllers
                 return Unauthorized();
             return Ok(token);
         }
+
+        [HttpGet]
+        public string Get()
+        {
+            return "Welcome to task App!";
+        }
     }
 }

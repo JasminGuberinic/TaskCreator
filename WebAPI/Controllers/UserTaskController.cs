@@ -69,5 +69,14 @@ namespace WebAPI.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpPut]
+        [Route("GetByTagsNames")]
+        public async Task<IActionResult> GetUserTaskByTagsnames([FromBody]TagsNamesDTO tags)
+        {
+            var query = new GetUserTasksByTagsNamesQuery(tags.TagNames);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

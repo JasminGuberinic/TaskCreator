@@ -39,15 +39,26 @@ namespace Persistance
             return _dbContext.UserTasks.FirstOrDefault(ut => ut.ID == id);
         }
 
-        public List<UserTask> GetById(List<Tag> tags)
+        public List<UserTask> GetByTags(List<Tag> tags)
         {
             var userTaskIDList = tags.Select(t => t.UserTaskID);
             return _dbContext.UserTasks.Where(ut => userTaskIDList.Any(utid => utid == ut.ID)).ToList();
         }
 
-        public List<UserTask> GetById(List<string> tags)
+        public List<UserTask> GetByTagIds(List<string> tags)
         {
             return _dbContext.UserTasks.Where(ut => tags.Any(tg => tg == ut.ID)).ToList();
+        }
+
+        public List<string> GetIdsByNames(List<string> names)
+        {
+            var userTasks = _dbContext.UserTasks.Where(ut => names.Any(nm => nm.ToLower() == ut.Name.ToLower()));
+            return userTasks.Select(ut => ut.ID).ToList();
+        }
+
+        public List<UserTask> GeUserTaskstByIds(List<string> userTaskIds)
+        {
+            return _dbContext.UserTasks.Where(ut => userTaskIds.Any(uti => uti == ut.ID)).ToList();
         }
 
         public UserTask GetByName(string name)

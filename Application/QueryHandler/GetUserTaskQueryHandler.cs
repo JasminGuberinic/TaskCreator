@@ -18,7 +18,7 @@ namespace Application.QueryHandler
         }
         public Task<UserTask> Handle(GetUserTaskQuery request, CancellationToken cancellationToken)
         {
-            var result = _userTaskRepository.GetById(request.ID);
+            var result = _userTaskRepository.GetById(request.UserTaskID);
             return Task.FromResult(result);
         }
     }

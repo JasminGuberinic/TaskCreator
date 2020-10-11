@@ -8,11 +8,11 @@ namespace Application
 {
     public class GetUserTaskByNameQuery : IRequest<UserTask>
     {
-        public string Name { get; set; }
+        public string UserTaskName { get; set; }
 
         public GetUserTaskByNameQuery(string name)
         {
-            Name = name;
+            UserTaskName = name;
         }
     }
 }

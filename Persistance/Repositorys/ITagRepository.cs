@@ -21,5 +21,7 @@ namespace Persistance
         List<Tag> GetByName(List<string> names);
 
         Task<string> DeleteTag(string id);
+
+        List<string> GetUserTaskIdsByTagNames(List<string> names);
     }
 }

@@ -35,7 +35,7 @@ namespace Persistance
 
         public Tag GetById(string id)
         {
-            return _dbContext.Tags.FirstOrDefault();
+            return _dbContext.Tags.FirstOrDefault( t => t.ID == id);
         }
 
         public List<Tag> GetByUserTaskId(string userTaskId)
@@ -50,7 +50,13 @@ namespace Persistance
 
         public List<Tag> GetByUserTaskIds(List<string> userTaskIds)
         {
-            return _dbContext.Tags.Where(tag => userTaskIds.Any(ut => ut == tag.ID)).ToList();
+            return _dbContext.Tags.Where(tag => userTaskIds.Any(ut => ut == tag.UserTaskID)).ToList();
+        }
+
+        public List<string> GetUserTaskIdsByTagNames(List<string> names)
+        {
+            var userTasks = _dbContext.Tags.Where(tg => names.Any(nm => nm == tg.TagName));
+            return userTasks.Select(tg => tg.TagName).ToList();
         }
 
         public List<Tag> GetByName(List<string> names)

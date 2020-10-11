@@ -18,7 +18,7 @@ namespace Application
         }
         public Task<UserTask> Handle(GetUserTaskByNameQuery request, CancellationToken cancellationToken)
         {
-            var result = _userTaskRepository.GetByName(request.Name);
+            var result = _userTaskRepository.GetByName(request.UserTaskName);
             return Task.FromResult(result);
         }
     }

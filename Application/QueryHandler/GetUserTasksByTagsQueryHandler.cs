@@ -22,8 +22,8 @@ namespace Application
 
         public Task<List<UserTask>> Handle(GetUserTasksByTagsQuery request, CancellationToken cancellationToken)
         {
-            var resultTags = _tagRepository.GetByUserTaskIds(request.IDs);
-            var resultTasks = _userTaskRepository.GetById(resultTags);
+            var resultTags = _tagRepository.GetByUserTaskIds(request.TagIDs);
+            var resultTasks = _userTaskRepository.GetByTags(resultTags);
 
             return Task.FromResult(resultTasks);
         }
