@@ -18,6 +18,7 @@ namespace Application
 
         public async Task<string> Handle(SetUserTaskInCompleteCommand request, CancellationToken cancellationToken)
         {
+            //This is simulation of some task being run
             for (int i = 0; i < 100000000; i++)
             {
             }
