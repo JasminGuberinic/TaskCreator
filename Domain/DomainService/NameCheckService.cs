@@ -9,12 +9,10 @@ namespace Domain
     {
         public static bool IsTagNameValid(string tagName) 
         {
-            string patternOne = "/^.{3,}$/";
-            string patternTwo = "^[a - z] +$";
-            Match matchOne = Regex.Match(tagName, patternOne, RegexOptions.None);
-            Match matchTwo = Regex.Match(tagName, patternTwo, RegexOptions.None);
+            string pattern = "^[a-z]+$";
+            Match match = Regex.Match(tagName, pattern, RegexOptions.None);
 
-            if (matchOne.Success && matchTwo.Success)
+            if (match.Success && tagName.Length > 3)
                 return true;
 
             return false;

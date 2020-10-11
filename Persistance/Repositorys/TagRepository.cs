@@ -50,7 +50,7 @@ namespace Persistance
 
         public List<Tag> GetByUserTaskIds(List<string> userTaskIds)
         {
-            return _dbContext.Tags.Where(tag => userTaskIds.Any(ut => ut == tag.UserTaskID)).ToList();
+            return _dbContext.Tags.Where(tag => userTaskIds.Any(ut => ut == tag.ID)).ToList();
         }
 
         public List<Tag> GetByName(List<string> names)

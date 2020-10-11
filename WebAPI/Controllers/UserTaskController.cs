@@ -1,6 +1,7 @@
 ﻿using Application;
 using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,7 +25,8 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("ByName")]
+        [Authorize]
+        [Route("ById")]
         public async Task<IActionResult> GetUserTaskById(string id)
         {
             var query = new GetUserTaskQuery(id);
@@ -33,7 +35,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [Route("ById")]
+        [Route("ByName")]
         public async Task<IActionResult> GetUserTaskByName(string name)
         {
             var query = new GetUserTaskByNameQuery(name);

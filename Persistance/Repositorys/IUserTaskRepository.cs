@@ -13,5 +13,8 @@ namespace Persistance
         Task<Guid> CreateUserTask(string name, string description);
         List<UserTask> GetById(List<Tag> tags);
         List<UserTask> GetById(List<string> tags);
+        bool IsThereInProgressTask();
+        Task<string> SetUserTaskInProgress(string userTaskID);
+        Task<string> SetUserTaskInCompleted(string userTaskID);
     }
 }

@@ -1,13 +1,15 @@
+using Domain;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace UnitTestProject
 {
     [TestClass]
-    public class UnitTest1
+    public class NameCheckerTest
     {
         [TestMethod]
-        public void TestMethod1()
+        public void TagNameValid()
         {
+            Assert.IsTrue(NameCheckService.IsTagNameValid("tagone"));
         }
     }
 }

@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Application
 {
-    public class GetUserTasksByTagsHandler : IRequestHandler<GetUserTasksByTagsQuery, List<UserTask>>
+    public class GetUserTasksByTagsQueryHandler : IRequestHandler<GetUserTasksByTagsQuery, List<UserTask>>
     {
         private readonly ITagRepository _tagRepository;
         private readonly IUserTaskRepository _userTaskRepository;
 
-        public GetUserTasksByTagsHandler(ITagRepository tagRepository, IUserTaskRepository userTaskRepository)
+        public GetUserTasksByTagsQueryHandler(ITagRepository tagRepository, IUserTaskRepository userTaskRepository)
         {
             _tagRepository = tagRepository;
             _userTaskRepository = userTaskRepository;

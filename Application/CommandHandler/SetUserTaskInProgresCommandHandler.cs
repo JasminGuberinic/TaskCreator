@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Domain;
+using MediatR;
 using Persistance;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,29 @@ namespace Application
             _userTaskRepository = userTaskRepository;
         }
 
-        public Task<string> Handle(SetUserTaskInProgresCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(SetUserTaskInProgresCommand request, CancellationToken cancellationToken)
         {
-            var usetTask =  _userTaskRepository.GetById(request.UserTaskID);
-            usetTask.TaskStatus = Domain.TaskStatus.INPROGRESS;
-            return Task.FromResult(request.UserTaskID);
+            if(_userTaskRepository.IsThereInProgressTask())
+            {
+                throw new OnlyOneTaskInProgressException("There is task in progress");
+            }
+
+            await _userTaskRepository.SetUserTaskInProgress(request.UserTaskID);
+
+            RunTaskSetInProgress(request.UserTaskID);
+
+            return request.UserTaskID;
+        }
+
+        void RunTaskSetInProgress(string userTaskID)
+        {
+            Task.Run(async () =>
+            {
+                for (int i = 0; i < 1000000; i++)
+                {
+                }
+                await _userTaskRepository.SetUserTaskInCompleted(userTaskID);
+            });
         }
     }
 }

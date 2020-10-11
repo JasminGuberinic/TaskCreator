@@ -41,7 +41,8 @@ namespace Persistance
 
         public List<UserTask> GetById(List<Tag> tags)
         {
-            return _dbContext.UserTasks.Where(ut => tags.Any(tg => tg.ID == ut.ID)).ToList();
+            var userTaskIDList = tags.Select(t => t.UserTaskID);
+            return _dbContext.UserTasks.Where(ut => userTaskIDList.Any(utid => utid == ut.ID)).ToList();
         }
 
         public List<UserTask> GetById(List<string> tags)
@@ -52,6 +53,27 @@ namespace Persistance
         public UserTask GetByName(string name)
         {
             return _dbContext.UserTasks.FirstOrDefault(ut => ut.Name.ToLower() == name.ToLower());
+        }
+
+        public bool IsThereInProgressTask()
+        {
+            return _dbContext.UserTasks.Any(ut => ut.TaskStatus == Domain.TaskStatus.INPROGRESS);
+        }
+
+        public async Task<string> SetUserTaskInProgress(string userTaskID)
+        {
+            var usetTask = GetById(userTaskID);
+            usetTask.TaskStatus = Domain.TaskStatus.INPROGRESS;
+            await _dbContext.SaveChangesAsync();
+            return userTaskID;
+        }
+
+        public async Task<string> SetUserTaskInCompleted(string userTaskID)
+        {
+            var usetTask = GetById(userTaskID);
+            usetTask.TaskStatus = Domain.TaskStatus.COMPLETED;
+            await _dbContext.SaveChangesAsync();
+            return userTaskID;
         }
     }
 }
