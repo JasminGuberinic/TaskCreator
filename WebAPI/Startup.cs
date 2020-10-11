@@ -112,7 +112,8 @@ namespace WebAPI
                 typeof(Application.GetTagsByUserTaskIDQuery),
                 typeof(Application.CreateTagCommand),
                 typeof(Application.DeleteTagCommand),
-                typeof(Application.GetUserTasksByTagsNamesQuery));
+                typeof(Application.GetUserTasksByTagsNamesQuery),
+                typeof(Application.SetUserTaskInCompleteCommand));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

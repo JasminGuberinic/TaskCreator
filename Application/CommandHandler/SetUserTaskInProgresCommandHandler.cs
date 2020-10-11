@@ -12,9 +12,12 @@ namespace Application
     public class SetUserTaskInProgresCommandHandler : IRequestHandler<SetUserTaskInProgresCommand, string>
     {
         private readonly IUserTaskRepository _userTaskRepository;
-        public SetUserTaskInProgresCommandHandler(IUserTaskRepository userTaskRepository)
+        private readonly IMediator _mediator;
+
+        public SetUserTaskInProgresCommandHandler(IUserTaskRepository userTaskRepository, IMediator mediator)
         {
             _userTaskRepository = userTaskRepository;
+            _mediator = mediator;
         }
 
         public async Task<string> Handle(SetUserTaskInProgresCommand request, CancellationToken cancellationToken)
@@ -25,21 +28,10 @@ namespace Application
             }
 
             await _userTaskRepository.SetUserTaskInProgress(request.UserTaskID);
-
-            RunTaskSetInProgress(request.UserTaskID);
+            var command = new SetUserTaskInCompleteCommand(request.UserTaskID);
+            await _mediator.Send(command);
 
             return request.UserTaskID;
-        }
-
-        void RunTaskSetInProgress(string userTaskID)
-        {
-            Task.Run(async () =>
-            {
-                for (int i = 0; i < 1000000; i++)
-                {
-                }
-                await _userTaskRepository.SetUserTaskInCompleted(userTaskID);
-            });
         }
     }
 }

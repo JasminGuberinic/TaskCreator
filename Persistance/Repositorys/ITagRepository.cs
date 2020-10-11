@@ -12,6 +12,8 @@ namespace Persistance
 
         Tag GetById(string id);
 
+        List<Tag> GetByIds(List<string> tagIds);
+
         List<Tag> GetByUserTaskId(string userTaskId);
 
         List<Tag> GetByUserTaskIds(List<string> userTaskIds);

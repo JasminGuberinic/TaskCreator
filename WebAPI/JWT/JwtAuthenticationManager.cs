@@ -12,7 +12,7 @@ namespace WebAPI
     public class JwtAuthenticationManager : IJwtAuthenticationManager
     {
         private readonly IDictionary<string, string> users = new Dictionary<string, string>
-        { {"test1","passord1"} ,{"test2","passord2"} };
+        { {"admin@maus.ba","Testpass1"} ,{"test2@maus.ba","passord2"} };
 
         private string key;
 
@@ -35,7 +35,7 @@ namespace WebAPI
                 Subject = new ClaimsIdentity(
                     new Claim[]
                     {
-                        new Claim(ClaimTypes.Name, username)
+                        new Claim(ClaimTypes.Email, username)
                     }
                 ),
                 Expires = DateTime.UtcNow.AddHours(1),

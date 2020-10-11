@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UserTaskController : ControllerBase
@@ -25,7 +26,6 @@ namespace WebAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [Route("ById")]
         public async Task<IActionResult> GetUserTaskById(string id)
         {
@@ -54,7 +54,7 @@ namespace WebAPI.Controllers
         
         [HttpPut]
         [Route("ChangeStatus")]
-        public async Task<IActionResult> ChangeTaskStatus([FromRoute]string userTaskId)
+        public async Task<IActionResult> ChangeTaskStatus(string userTaskId)
         {
             var query = new SetUserTaskInProgresCommand(userTaskId);
             var result = await _mediator.Send(query);
@@ -62,7 +62,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut]
-        [Route("GetByTags")]
+        [Route("GetByTagsIds")]
         public async Task<IActionResult> GetUserTaskByTags([FromBody]TagIDsListDTO tags)
         {
             var query = new GetUserTasksByTagsQuery(tags.ListTagsIds);

@@ -38,6 +38,11 @@ namespace Persistance
             return _dbContext.Tags.FirstOrDefault( t => t.ID == id);
         }
 
+        public List<Tag> GetByIds(List<string> tagIds)
+        {
+            return _dbContext.Tags.Where(tag => tagIds.Any(tg => tg == tag.ID)).ToList();
+        }
+
         public List<Tag> GetByUserTaskId(string userTaskId)
         {
             return _dbContext.Tags.Where(tag => tag.UserTaskID == userTaskId).ToList();
@@ -56,7 +61,7 @@ namespace Persistance
         public List<string> GetUserTaskIdsByTagNames(List<string> names)
         {
             var userTasks = _dbContext.Tags.Where(tg => names.Any(nm => nm == tg.TagName));
-            return userTasks.Select(tg => tg.TagName).ToList();
+            return userTasks.Select(tg => tg.UserTaskID).ToList();
         }
 
         public List<Tag> GetByName(List<string> names)
