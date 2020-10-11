@@ -23,21 +23,48 @@ namespace WebAPI.Controllers
             _mediator = mediator;
         }
 
-        ///<summary>This gets orders </summary>
-        ///<reeturns>integer</returns>
         [HttpGet]
-        public async Task<IActionResult> GetUserTask(string id)
+        [Route("ByName")]
+        public async Task<IActionResult> GetUserTaskById(string id)
         {
             var query = new GetUserTaskQuery(id);
-            var result = _mediator.Send(query);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("ById")]
+        public async Task<IActionResult> GetUserTaskByName(string name)
+        {
+            var query = new GetUserTaskByNameQuery(name);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+        
+        [HttpPut]
+        [Route("Save")]
+        public async Task<IActionResult> SaveUserTask([FromBody]UserTaskDTO userTask)
+        {
+            var query = new CreateUserTaskCommand(userTask.Description, userTask.Name);
+            var result = await _mediator.Send(query);
+            return Ok(result);
+        }
+        
+        [HttpPut]
+        [Route("ChangeStatus")]
+        public async Task<IActionResult> ChangeTaskStatus([FromRoute]string userTaskId)
+        {
+            var query = new SetUserTaskInProgresCommand(userTaskId);
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
 
         [HttpPut]
-        public async Task<IActionResult> GetUserTask([FromBody]UserTaskDTO userTask)
+        [Route("GetByTags")]
+        public async Task<IActionResult> GetUserTaskByTags([FromBody]TagIDsListDTO tags)
         {
-            var query = new CreateUserTaskCommand(userTask.Description, userTask.Name);
-            var result = _mediator.Send(query);
+            var query = new GetUserTasksByTagsQuery(tags.ListTagsIds);
+            var result = await _mediator.Send(query);
             return Ok(result);
         }
     }

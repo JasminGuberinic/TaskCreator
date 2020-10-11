@@ -50,7 +50,12 @@ namespace WebAPI
 
             services.AddMediatR(typeof(Application.GetUserTaskQuery), 
                 typeof(Application.GetUserTaskByNameQuery),
-                typeof(Application.CreateUserTaskCommand));
+                typeof(Application.CreateUserTaskCommand),
+                typeof(Application.SetUserTaskInProgresCommand),
+                typeof(Application.GetUserTasksByTagsQuery),
+                typeof(Application.GetTagsByUserTaskIDQuery),
+                typeof(Application.CreateTagCommand),
+                typeof(Application.DeleteTagCommand));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

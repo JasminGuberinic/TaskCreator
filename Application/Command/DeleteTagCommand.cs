@@ -7,7 +7,7 @@ namespace Application
 {
     public class DeleteTagCommand : IRequest<string>
     {
-        public DeleteTagCommand(string id, string tagName)
+        public DeleteTagCommand(string id)
         {
             Id = id;
         }

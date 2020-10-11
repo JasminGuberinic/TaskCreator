@@ -7,7 +7,7 @@ namespace Application
 {
     public class SetUserTaskInProgresCommand : IRequest<string>
     {
-        public SetUserTaskInProgresCommand(string userTaskID, string tagName)
+        public SetUserTaskInProgresCommand(string userTaskID)
         {
             UserTaskID = userTaskID;
         }
